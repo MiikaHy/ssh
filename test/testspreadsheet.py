@@ -47,7 +47,7 @@ class TestSpreadSheet(TestCase):
     def test_evaluate_valid_integer_formula(self):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1", "=1")
-        self.assertEqual("1", spreadsheet.evaluate("A1"))
+        self.assertEqual(1, spreadsheet.evaluate("A1"))
 
     def test_evaluate_invalid_string_formula(self):
         spreadsheet = SpreadSheet()

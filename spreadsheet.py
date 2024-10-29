@@ -20,6 +20,6 @@ class SpreadSheet:
         if value.lstrip('-').isdigit():
             return int(value)
         if value.startswith("=") and value[1:].isdigit():
-            return value[1:]
+            return int(value[1:])
         return "#Error"
 
