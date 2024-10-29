@@ -13,6 +13,9 @@ class SpreadSheet:
 
     def evaluate(self, cell: str) -> int | str:
         value = self.get(cell)
+        if value.startswith("'") and value.endswith("'"):
+            return value[1:-1]
         if value.lstrip('-').isdigit():
             return int(value)
         return "#Error"
+
