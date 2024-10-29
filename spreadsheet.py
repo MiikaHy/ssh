@@ -12,27 +12,31 @@ class SpreadSheet:
         return self._cells.get(cell, '')
 
     def evaluate(self, cell: str) -> int | str:
-        value = self.get(cell)
         if cell in self._evaluating:
-            return "#Error"
+            return "#Circular"
         self._evaluating.add(cell)
-        try:
-            if value.startswith("='") and value.endswith("'"):
-                return value[2:-1]
-            if value.startswith("'") and value.endswith("'"):
-                return value[1:-1]
-            if value.lstrip('-').isdigit():
-                return int(value)
-            if value.startswith("="):
-                if value[1:].isdigit():
-                    return int(value[1:])
-                elif value[1:].lstrip('-').isdigit():
-                    return int(value[1:])
+        
+        value = self.get(cell)
+        if value.startswith("='") and value.endswith("'"):
+            result = value[2:-1]
+        elif value.startswith("'") and value.endswith("'"):
+            result = value[1:-1]
+        elif value.lstrip('-').isdigit():
+            result = int(value)
+        elif value.startswith("="):
+            if value[1:].isdigit():
+                result = int(value[1:])
+            elif value[1:].lstrip('-').isdigit():
+                result = int(value[1:])
+            else:
+                reference = value[1:]
+                if reference in self._cells:
+                    result = self.evaluate(reference)
                 else:
-                    ref_value = self.evaluate(value[1:])
-                    if isinstance(ref_value, int):
-                        return ref_value
-            return "#Error"
-        finally:
-            self._evaluating.remove(cell)
+                    result = "#Error"
+        else:
+            result = "#Error"
+        
+        self._evaluating.remove(cell)
+        return result
 
