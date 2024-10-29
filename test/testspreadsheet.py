@@ -87,6 +87,11 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1/0")
         self.assertEqual("#Error", spreadsheet.evaluate("A1"))
 
+    def test_evaluate_valid_division_formula(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=3/3")
+        self.assertEqual(1, spreadsheet.evaluate("A1"))
+
     def test_evaluate_valid_multiplication_formula(self):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1", "=1*5")
