@@ -28,6 +28,12 @@ class SpreadSheet:
                 result = int(value[1:])
             elif value[1:].lstrip('-').isdigit():
                 result = int(value[1:])
+            elif '+' in value:
+                parts = value[1:].split('+')
+                if all(part.lstrip('-').isdigit() for part in parts):
+                    result = sum(int(part) for part in parts)
+                else:
+                    result = "#Error"
             else:
                 reference = value[1:]
                 if reference in self._cells:
