@@ -54,6 +54,12 @@ class SpreadSheet:
                     result = int(parts[0]) // int(parts[1])
                 else:
                     result = "#Error"
+            elif '%' in value:
+                parts = value[1:].split('%')
+                if all(part.lstrip('-').isdigit() for part in parts) and int(parts[1]) != 0:
+                    result = int(parts[0]) % int(parts[1])
+                else:
+                    result = "#Error"
             else:
                 reference = value[1:]
                 if reference in self._cells:

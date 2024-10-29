@@ -77,7 +77,7 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1+3")
         self.assertEqual(4, spreadsheet.evaluate("A1"))
 
-    def test_evaluate_valid_substraction_formula(self):
+    def test_evaluate_valid_subtraction_formula(self):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1", "=1-3")
         self.assertEqual(-2, spreadsheet.evaluate("A1"))
@@ -101,3 +101,8 @@ class TestSpreadSheet(TestCase):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1", "=1*5")
         self.assertEqual(5, spreadsheet.evaluate("A1"))
+
+    def test_evaluate_valid_module_formula(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=14%12")
+        self.assertEqual(2, spreadsheet.evaluate("A1"))
