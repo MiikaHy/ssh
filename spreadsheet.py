@@ -34,6 +34,12 @@ class SpreadSheet:
                     result = sum(int(part) for part in parts)
                 else:
                     result = "#Error"
+            elif '-' in value:
+                parts = value[1:].split('-')
+                if all(part.lstrip('-').isdigit() for part in parts):
+                    result = int(parts[0]) - int(parts[1])
+                else:
+                    result = "#Error"
             elif '*' in value:
                 parts = value[1:].split('*')
                 if all(part.lstrip('-').isdigit() for part in parts):
