@@ -102,7 +102,12 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1*5")
         self.assertEqual(5, spreadsheet.evaluate("A1"))
 
-    def test_evaluate_valid_module_formula(self):
+    def test_evaluate_valid_modulo_formula(self):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1", "=14%12")
         self.assertEqual(2, spreadsheet.evaluate("A1"))
+
+    def test_evaluate_valid_complex_formula(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=3-1*2")
+        self.assertEqual(7, spreadsheet.evaluate("A1"))
